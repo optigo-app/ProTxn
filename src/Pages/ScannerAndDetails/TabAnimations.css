@@ -1,0 +1,28 @@
+.tab-content-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  
+  .tab-content-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .tab-content-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .tab-content-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .custom-tooltip {
+    background-color: blue !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  

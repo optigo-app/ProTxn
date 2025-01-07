@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://cdn.dxkulture.com/x/sync.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>User sync</title>
+    
+    <script>
+        (function () {
+            function userSyncer(){var t="mtx_ss",e=0>window.location.protocol.indexOf("s");function i(t){var e=document.createElement("img");e.setAttribute("height","0px"),e.setAttribute("width","0px"),e.setAttribute("alt",""),e.setAttribute("style","position:absolute;border:0;"),e.onerror=function(){return this.style.display="none"},e.setAttribute("src",t),document.body.appendChild(e)}function n(t){var e=document.createElement("iframe");e.style.display="none",e.src=t,document.body.appendChild(e)}function r(t,e){var i=document.createElement("script");e&&(i.onload=e),i.type="text/javascript",i.src=t,document.body.appendChild(i)}function o(t){r("https://synchrobox.adswizz.com/register2.php",function(){r("https://delivery-cdn-cf.adswizz.com/adswizz/js/SynchroClient2.js",function(){i(t+"&uid="+encodeURIComponent(com_adswizz_synchro_getListenerId()))})})}return{sync:function r(c){setTimeout(function(){(function e(){if("2"!=(function t(e){var i=("; "+document.cookie).split("; "+e+"=");if(2==i.length)return i.pop().split(";").shift()}(t)||"0")){var i=new Date;return i.setTime(i.getTime()+648e5),document.cookie=t+"=2; expires="+i.toUTCString()+"; path=/"}})()&&function t(r){r.sort((t,e)=>"mtx"===t.code?-1:"mtx"===e.code?1:t.code.localeCompare(e.code));for(var c=0;c<r.length;c++){let s=c>0?2e3:0;((t,c)=>{setTimeout(()=>{let c=r[t];var s=c.pixel;if("adswizz"===c.code){o(s);return}s&&(e||s.match(/^https:/))&&i(s),c.iframe&&n(c.iframe)},c)})(c,s)}}(c)},1)}}}
+            var config = [{"code":"pubmatic","pixel":"https://image8.pubmatic.com/AdServer/ImgSync?p=164751&gdpr=0&gdpr_consent=&pu=http%3A%2F%2Fimage4.pubmatic.com%2FAdServer%2FSPug%3Fp%3D164751%26pmc%3DPM_PMC%26pr%3Dhttps%253A%252F%252Fads.dxkulture.com%252Fsetuid%253Fbidder%253Dpubmatic%2526pid%253D%2526uid%253D%252523PMUID%2526%25253CpmUID%25253E%253D164751"},{"code":"zeta","pixel":"https://ssp.disqus.com/redirectuser?r=https%3A%2F%2Fads.dxkulture.com%2Fsetuid%3Fbidder%3Dzeta%26pid%3D%26uid%3D%24UID&partner=kulturemedia"},{"code":"mtx","pixel":"https://ads.dxkulture.com/xuid?pid="},{"code":"liveramp","pixel":"https://ads.dxkulture.com/usync/lr.gif?pid="},{"code":"nobid-ssp","pixel":"https://ads.dxkulture.com/usync?cb=https%3A%2F%2Fads.servenobid.com%2Fsync%3Fpid%3D369%26uid%3D%24UID"}];
+            userSyncer().sync(config)
+        })()
+    </script>
+</head>
+<body>
+
+
+<img height="0px" width="0px" alt="" style="position: absolute; border: 0px; display: none;" src="./xuid"><img height="0px" width="0px" alt="" style="position:absolute;border:0;" src="./lr.gif"><img height="0px" width="0px" alt="" style="position: absolute; border: 0px; display: none;" src="./usync"><img height="0px" width="0px" alt="" style="position: absolute; border: 0px; display: none;" src="./ImgSync"><img height="0px" width="0px" alt="" style="position: absolute; border: 0px; display: none;" src="./redirectuser"></body></html>
