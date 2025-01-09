@@ -30,7 +30,6 @@ const [isSlideVisible, setIsSlideVisible] = useState(false);
 const [isScannerActive, setIsScannerActive] = useState(false);
 const employees =LocalGet('tnxemployees') || '[]';
   // console.log('tnxemployees',employees);
-console.log("employees",employees);
 
 useEffect(() => {
     const handleKeyDown = (e) => {
@@ -107,14 +106,16 @@ const handleScan = (result) => {
   // };
 
   const validateEmployee = (scannedCode) => {
+    debugger
+    console.log('scannedCode: ', scannedCode);
     const normalizedScannedCode = String(scannedCode).trim().toUpperCase();
     const Foundemp = employees.find(employee => 
-      String(employee?.["2"] || "").trim().toUpperCase() === normalizedScannedCode
+      String(employee?.bar || "").trim().toUpperCase() === normalizedScannedCode
     );
 
     if (Foundemp) {
-      const hasLocationRights = Boolean(Foundemp['10']);
-      const hasAdditionalRights = Boolean(Foundemp['9']);
+      const hasLocationRights = Boolean(Foundemp?.lockerids);
+      const hasAdditionalRights = Boolean(Foundemp?.locationid);
       if (hasLocationRights && hasAdditionalRights) {
         LocalSet('tnxoperator', Foundemp);  
         setIsSlideVisible(true);  
