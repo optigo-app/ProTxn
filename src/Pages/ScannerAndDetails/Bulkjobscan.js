@@ -27,9 +27,9 @@ const JobDetails = ({ jobDetail, defaultExpanded = false }) => {
         <div className="flex items-center space-x-4">    
           <div className='flex flex-row gap-2'> 
             <h2 className="text-2xl font-bold text-indigo-500">
-            {jobDetail?.['2']}            </h2>
+            {jobDetail?.serialjobno}</h2>
             <p className="font-medium text-gray-700 text-lg">
-              ({jobDetail?.['11']})
+              ({jobDetail?.designno})
             </p>
           </div>
         </div>
@@ -70,13 +70,13 @@ const JobDetails = ({ jobDetail, defaultExpanded = false }) => {
                 <p className="text-lg font-medium text-gray-700">{jobDetail.name}</p>
               </div>
               <div className="flex flex-col justify-evenly ">
-                <InfoItem label="Customer Name" value={jobDetail?.['6']} />
-                <InfoItem label="PO Number" value={jobDetail?.['12']} />
-                <InfoItem label="Bag location" value={jobDetail?.['13']} />
+                <InfoItem label="Customer Name" value={jobDetail?.CustomerName} />
+                <InfoItem label="PO Number" value={jobDetail?.PO} />
+                <InfoItem label="Bag location" value={jobDetail?.Locationname} />
               </div>
               <div className="flex flex-col justify-evenly ">
-                <InfoItem label="Misc Add in Gross wt" value={jobDetail?.['14'] == 0 ? "NO" :"YES"} />
-                <InfoItem label="Is HMW Job?" value={jobDetail['15']== 0 ? "NO" :"YES"} />
+                <InfoItem label="Misc Add in Gross wt" value={jobDetail?.ismisc_not_addingrosswt == 0 ? "NO" :"YES"} />
+                <InfoItem label="Is HMW Job?" value={jobDetail?.isissue== 0 ? "NO" :"YES"} />
                 <InfoItem label="Current Status" value={jobDetail.currentStatus} />
               </div>
             </div>

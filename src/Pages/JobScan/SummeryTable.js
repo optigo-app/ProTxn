@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -14,7 +14,7 @@ import { TfiBackRight } from "react-icons/tfi";
 import { IoSwapHorizontal } from "react-icons/io5";
 import { IoReturnUpForward } from "react-icons/io5";
 import DetailsTable from './DetailsTable';
-import { IoClose } from 'react-icons/io5'; 
+import { IoClose } from 'react-icons/io5';
 import { IoMdReturnRight } from "react-icons/io";
 
 
@@ -68,7 +68,7 @@ export default function SummaryTable() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [color,setcolor] = useState('white'); 
+  const [color, setcolor] = useState('white');
   const handleClickOpen = (id) => {
     setSelectedId(id);
     setOpen(true);
@@ -82,7 +82,7 @@ export default function SummaryTable() {
     setOpenModal(true);
   };
 
-const handleCloseModal = () => {
+  const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedId(null);
   };
@@ -99,18 +99,18 @@ const handleCloseModal = () => {
       width: 80,
       renderCell: (params) => (
         <Tooltip title="View Details">
-         <IconButton
-  className="text-[#257BF0] hover:text-gray-600"
-  onClick={() => handleOpenModal(params.id)}
-  sx={{
-    color: '#257BF0',
-    '&:hover': {
-      color: 'gray',
-    }
-  }}
->
-  <VisibilityIcon sx={{ color: '#257BF0', fontSize: 20 }} />
-</IconButton>
+          <IconButton
+            className="text-[#257BF0] hover:text-gray-600"
+            onClick={() => handleOpenModal(params.id)}
+            sx={{
+              color: '#257BF0',
+              '&:hover': {
+                color: 'gray',
+              }
+            }}
+          >
+            <VisibilityIcon sx={{ color: '#257BF0', fontSize: 20 }} />
+          </IconButton>
 
         </Tooltip>
       ),
@@ -120,17 +120,17 @@ const handleCloseModal = () => {
       headerName: 'Return All',
       width: 70,
       renderCell: (params) => (
-        
-        <IconButton className="text-[#257BF0] cursor-pointer hover:text-blue-600"  onClick={() => handleClickOpen(params.id)}
-        sx={{
-          color: '#257BF0',
-          '&:hover': {
-            color: 'gray',
-          }
-        }}  
+
+        <IconButton className="text-[#257BF0] cursor-pointer hover:text-blue-600" onClick={() => handleClickOpen(params.id)}
+          sx={{
+            color: '#257BF0',
+            '&:hover': {
+              color: 'gray',
+            }
+          }}
         >
-            <IoSwapHorizontal size={20} />
-          </IconButton>
+          <IoSwapHorizontal size={20} />
+        </IconButton>
       ),
     },
     {
@@ -138,17 +138,17 @@ const handleCloseModal = () => {
       headerName: 'Return',
       width: 70,
       renderCell: (params) => (
-        
-        <IconButton className="text-[#257BF0] cursor-pointer hover:text-blue-600"  onClick={() => handleClickOpen(params.id)}
-        sx={{
-          color: '#257BF0',
-          '&:hover': {
-            color: 'gray',
-          }
-        }}  
+
+        <IconButton className="text-[#257BF0] cursor-pointer hover:text-blue-600" onClick={() => handleClickOpen(params.id)}
+          sx={{
+            color: '#257BF0',
+            '&:hover': {
+              color: 'gray',
+            }
+          }}
         >
-            <IoMdReturnRight  size={20} />
-          </IconButton>
+          <IoMdReturnRight size={20} />
+        </IconButton>
       ),
     },
     { field: 'bagPrepBy', headerName: 'BagPrepBy', width: 100 },
@@ -176,7 +176,7 @@ const handleCloseModal = () => {
     return '';
   };
 
-  
+
 
   const CustomModal = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
@@ -185,12 +185,12 @@ const handleCloseModal = () => {
         <div className=" bg-white w-2/3 p-4 rounded-lg ">
           <div className='w-full  h-full  flex  justify-end '>
 
-          <IconButton
-            className="text-gray-600 hover:text-red-600"
-            onClick={onClose}
-          >
-            <IoClose size={24} />
-          </IconButton>
+            <IconButton
+              className="text-gray-600 hover:text-red-600"
+              onClick={onClose}
+            >
+              <IoClose size={24} />
+            </IconButton>
           </div>
 
           {children}
@@ -202,34 +202,34 @@ const handleCloseModal = () => {
   return (
     <div className="w-full bg-white h-[40vh] overflow-auto">
       <ThemeProvider theme={theme}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection={(params) => params.row.flag === 1 || params.row.flag === 2}
-        isRowSelectable={(params) => params.row.flag === 1 || params.row.flag === 2}
-        getRowClassName={getRowClassName}
-        sx={{
-    '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-cell:focus': {
-      outline: 'none',
-      boxShadow: 'none',
-    },
-    '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-cell:focus-within': {
-      outline: 'none',
-      boxShadow: 'none',
-    },
-    '& .css-de9k3v-MuiDataGrid-selectedRowCount': {
-      visibility: 'hidden',
-    },
-    '& .MuiDataGrid-row.Mui-selected': {
-      backgroundColor: '#d1e7fd',
-    },
-    '& .MuiDataGrid-row:hover': {
-      backgroundColor: '#f5f5f5', 
-    },
-  }}
-/>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection={(params) => params.row.flag === 1 || params.row.flag === 2}
+          isRowSelectable={(params) => params.row.flag === 1 || params.row.flag === 2}
+          getRowClassName={getRowClassName}
+          sx={{
+            '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-cell:focus': {
+              outline: 'none',
+              boxShadow: 'none',
+            },
+            '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-cell:focus-within': {
+              outline: 'none',
+              boxShadow: 'none',
+            },
+            '& .css-de9k3v-MuiDataGrid-selectedRowCount': {
+              visibility: 'hidden',
+            },
+            '& .MuiDataGrid-row.Mui-selected': {
+              backgroundColor: '#d1e7fd',
+            },
+            '& .MuiDataGrid-row:hover': {
+              backgroundColor: '#f5f5f5',
+            },
+          }}
+        />
 
 
 

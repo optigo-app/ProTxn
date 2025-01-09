@@ -1,15 +1,23 @@
 import React from 'react';
-import {  Routes, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Routes, Route } from 'react-router-dom';
 import Scanemp from './Pages/Scanemployee';
 import FetchDataComponent from './Recoil/FetchDataComponent';
 import Login from './Pages/Login';
 import ScannerAndDetails from './Pages/ScannerAndDetails/ScannerAndDetails';
-import { RowsProvider } from './Context/RowsContext'; 
+import { RowsProvider } from './Context/RowsContext';
 
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Public Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+});
 const App = () => {
   return (
-    <RowsProvider> 
-   
+    <ThemeProvider theme={theme}>
+      <RowsProvider>
+
         <FetchDataComponent />
         <Routes>
           <Route path="/" element={<Login />} />
@@ -18,7 +26,8 @@ const App = () => {
           <Route path="/JobScan" element={<ScannerAndDetails />} />
         </Routes>
 
-    </RowsProvider>
+      </RowsProvider>
+    </ThemeProvider>
   );
 };
 

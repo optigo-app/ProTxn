@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FaQrcode, FaUser,  FaArrowRight } from 'react-icons/fa';
+import { FaQrcode, FaUser, FaArrowRight } from 'react-icons/fa';
 import QrScanner from 'qr-scanner';
 import { ClipLoader } from 'react-spinners';
 import ScannerIcon from '../../Assets/Qrcode.png';
@@ -9,35 +9,35 @@ import '../../components/Scanner.css';
 import { PiKeyReturnBold } from "react-icons/pi";
 import SummeryTable from './SummeryTable';
 
-const JobScan = () => { 
-const [scannedCode, setScannedCode] = useState('');
-const [jobDetails, setJobDetails] = useState(null);
-const [rfBagDetails, setRfBagDetails] = useState(null);
-const [activeTab, setActiveTab] = useState('summary');
-const [mountWeight, setMountWeight] = useState('');
-const [stockWeight, setStockWeight] = useState('');
-const [pcs, setPcs] = useState('');
-const [hasCamera, setHasCamera] = useState(true);
-const [barcode, setBarcode] = useState('');
-const [errorMessage, setErrorMessage] = useState('');
-const [loading, setLoading] = useState(false);
-const videoRef = useRef(null);
-const scannerRef = useRef(null);
-const [selectedDept, setSelectedDept] = useState('');
+const JobScan = () => {
+  const [scannedCode, setScannedCode] = useState('');
+  const [jobDetails, setJobDetails] = useState(null);
+  const [rfBagDetails, setRfBagDetails] = useState(null);
+  const [activeTab, setActiveTab] = useState('summary');
+  const [mountWeight, setMountWeight] = useState('');
+  const [stockWeight, setStockWeight] = useState('');
+  const [pcs, setPcs] = useState('');
+  const [hasCamera, setHasCamera] = useState(true);
+  const [barcode, setBarcode] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const videoRef = useRef(null);
+  const scannerRef = useRef(null);
+  const [selectedDept, setSelectedDept] = useState('');
 
-const departments = ['Filing', 'Casting', 'Polishing'];
+  const departments = ['Filing', 'Casting', 'Polishing'];
 
-const handleDeptClick = (dept) => {
-  setSelectedDept(dept);
-};
-const handleScan = (result) => {
-  if (result) {
-    setBarcode(result);
-    setHasCamera(false);
-    handleCodeSubmit(result);
-    handleScanSubmit(result);
-  }
-};
+  const handleDeptClick = (dept) => {
+    setSelectedDept(dept);
+  };
+  const handleScan = (result) => {
+    if (result) {
+      setBarcode(result);
+      setHasCamera(false);
+      handleCodeSubmit(result);
+      handleScanSubmit(result);
+    }
+  };
 
   useEffect(() => {
     if (videoRef.current && !scannerRef.current && hasCamera) {
@@ -64,7 +64,7 @@ const handleScan = (result) => {
         scannerRef.current = null;
       }
     };
-  }, [hasCamera,handleScan]);
+  }, [hasCamera, handleScan]);
 
 
   const handleCodeSubmit = async (scannedCode) => {
@@ -79,7 +79,7 @@ const handleScan = (result) => {
   };
 
   const handleChange = (e) => {
-    setScannedCode(e.target.value); 
+    setScannedCode(e.target.value);
     setBarcode(e.target.value);
     setErrorMessage('');
   };
@@ -98,7 +98,7 @@ const handleScan = (result) => {
       location: "INDIA",
       jobFlag: 'Issue',
     },
-    { 
+    {
       jobId: "1/123457",
       name: "GOLD 18K Shine Yellow",
       designNumber: "NEW-COP",
@@ -164,7 +164,7 @@ const handleScan = (result) => {
   //       <div className='w-full h-fit flex justify-center items-center'>
   //         {jobDetails.jobFlag === 'Return' && (
   //           <div className='w-full flex flex-row bg-white justify-between rounded-xl shadow-lg h-full items-center justify-self-center p-4'>
-            
+
   //           <div className='flex justify-center  rounded-lg items-center h-full w-1/2'>
 
   //           <div className="px-4 py-4 w-full max-w-96 h-fit items-center flex flex-col gap-6">
@@ -196,7 +196,7 @@ const handleScan = (result) => {
   //                 <button
   //                   onClick={() => {
   //                     alert("Job successfully returned");
-                     
+
   //                   }}
   //                   className="bg-blue-600 text-lg w-fit font-semibold text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300  shadow-md flex items-center justify-center"
   //                 >
@@ -204,7 +204,7 @@ const handleScan = (result) => {
   //                 </button>
   //                 <button
   //                   onClick={() => {
-                    
+
   //                   }}
   //                   className="bg-gray-500 text-white w-fit px-4 py-2 text-lg font-semibold rounded-md hover:bg-gray-600 transition duration-300  shadow-md"
   //                 >
@@ -213,7 +213,7 @@ const handleScan = (result) => {
   //               </div>
   //             </div>
   //           </div>
-         
+
 
   //             <div className=' p-6 bg-blue-50 rounded-xl w-1/2 h-full shadow-md ml-8'>
   //               <div className='grid grid-cols-2 gap-2 text-gray-700'>
@@ -249,7 +249,7 @@ const handleScan = (result) => {
   //         {jobDetails.jobFlag === 'Issue' && (
   //           <div className='w-full items-center flex justify-center'>
   //             <div className="px-6 py-4 w-full bg-white flex flex-col gap-4 rounded-lg shadow-inner max-w-5xl">
-              
+
   //               <h3 className="text-lg font-semibold mb-2 text-gray-600">
   //                 Issue Job 
   //                 <p className='font-bold text-indigo-600 text-2xl w-full text-pretty'>
@@ -269,7 +269,7 @@ const handleScan = (result) => {
   //               <button
   //                 onClick={() => {
   //                   alert("Job successfully issued");
-                    
+
   //                 }}
   //                 className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-lg font-semibold transition duration-300 flex items-center justify-center"
   //               >
@@ -324,7 +324,7 @@ const handleScan = (result) => {
   //                   </tr>
   //                 </thead>
   //                 <tbody>
-                    
+
   //                   <tr>
   //                     <td className="border-b border-gray-200 p-4">Sample History Item</td>
   //                     <td className="border-b border-gray-200 p-4">2024-10-02 10:00 AM</td>
@@ -338,7 +338,7 @@ const handleScan = (result) => {
   //     </div>
   //   )
   // );
-  
+
 
 
   const renderJobDetails = () => (
@@ -350,7 +350,7 @@ const handleScan = (result) => {
               <div className='flex-1 flex flex-col justify-between rounded-lg items-start'>
                 <div className="w-full max-w-md space-y-6">
                   <h3 className="text-2xl font-bold text-gray-800">
-                    Return Job 
+                    Return Job
                     <span className='block text-green-600 text-3xl mt-1'>
                       {jobDetails.jobId}
                     </span>
@@ -382,7 +382,7 @@ const handleScan = (result) => {
                       <PiKeyReturnBold size={24} className='mr-2' /> Return
                     </button>
                     <button
-                      onClick={() => {}}
+                      onClick={() => { }}
                       className="flex-1 bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-600 transition duration-300 shadow-md text-lg font-semibold"
                     >
                       Cancel
@@ -392,7 +392,7 @@ const handleScan = (result) => {
               </div>
               <div className='flex-1 p-6 bg-blue-50 rounded-xl shadow-inner'>
                 <div className='grid grid-cols-2 gap-4 text-gray-700'>
-                  {[ 'Diamond', 'Color Stone', 'Misc', 'Current Net', 'Current Gross'].map((item) => (
+                  {['Diamond', 'Color Stone', 'Misc', 'Current Net', 'Current Gross'].map((item) => (
                     <div key={item} className='flex justify-between items-center'>
                       <span className='text-gray-500'>{item}:</span>
                       <strong className='text-lg text-gray-800'>0.000</strong>
@@ -413,50 +413,50 @@ const handleScan = (result) => {
                     </div>
                   ))}
                 </div>
-             
+
               </div>
             </div>
           )}
 
         </div>
         {jobDetails.jobFlag === 'Issue' && (
-        <div className="w-full flex justify-center mt-8">
-          <div className="w-full max-w-2xl bg-white flex flex-col gap-6 rounded-xl shadow-lg p-8 ">
-            <h3 className="text-2xl font-bold text-gray-800 text-center">
-              Issue Job
-              <span className="block text-indigo-600 text-3xl mt-2">
-                {jobDetails.jobId}
-              </span>
-            </h3>
+          <div className="w-full flex justify-center mt-8">
+            <div className="w-full max-w-2xl bg-white flex flex-col gap-6 rounded-xl shadow-lg p-8 ">
+              <h3 className="text-2xl font-bold text-gray-800 text-center">
+                Issue Job
+                <span className="block text-indigo-600 text-3xl mt-2">
+                  {jobDetails.jobId}
+                </span>
+              </h3>
 
-            <div>
-              <label htmlFor="issueDept" className="block text-sm font-medium text-gray-700 mb-2">
-                Select Department:
-              </label>
-              <div className="w-full rounded-lg p-4 flex flex-wrap gap-2">
-                {departments.map((dept) => (
-                  <div
-                    key={dept}
-                    className={`p-2 rounded-md px-4 border cursor-pointer transition-colors duration-300
+              <div>
+                <label htmlFor="issueDept" className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Department:
+                </label>
+                <div className="w-full rounded-lg p-4 flex flex-wrap gap-2">
+                  {departments.map((dept) => (
+                    <div
+                      key={dept}
+                      className={`p-2 rounded-md px-4 border cursor-pointer transition-colors duration-300
                       ${selectedDept === dept ? 'bg-[#56a4ff] border-[#56a4ff] text-white' : 'bg-white text-gray-800 border-gray-300  '}`}
-                    onClick={() => handleDeptClick(dept)}
-                  >
-                    {dept}
-                  </div>
-                ))}
+                      onClick={() => handleDeptClick(dept)}
+                    >
+                      {dept}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <button
-              onClick={() => alert('Job successfully issued')}
-              className="w-full bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-300 text-lg font-semibold transition duration-300 flex items-center justify-center"
-            >
-              Issue Job <FaArrowRight className="ml-2" />
-            </button>
+              <button
+                onClick={() => alert('Job successfully issued')}
+                className="w-full bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-300 text-lg font-semibold transition duration-300 flex items-center justify-center"
+              >
+                Issue Job <FaArrowRight className="ml-2" />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-   
+        )}
+
         {jobDetails && (
           <div className="bg-white mt-8 h-full rounded-xl shadow-md overflow-auto">
             <div className="flex border-b border-gray-200">
@@ -487,11 +487,11 @@ const handleScan = (result) => {
                 //       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Job ID</td>
                 //       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{jobDetails.jobId}</td>
                 //     </tr>
-                  
+
                 //   </tbody>
                 // </table>
 
-                <SummeryTable/>
+                <SummeryTable />
               )}
               {activeTab === 'details' && (
                 <table className="min-w-full divide-y divide-gray-200">
@@ -506,7 +506,7 @@ const handleScan = (result) => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sample History Item</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-10-02 10:00 AM</td>
                     </tr>
-                 
+
                   </tbody>
                 </table>
               )}
@@ -516,13 +516,13 @@ const handleScan = (result) => {
       </div>
     )
   );
-  
+
 
   const renderSideJobDetails = () => (
     jobDetails && (
       <div className='bg-white min-h-screen w-full lg:w-[20vw] flex flex-col shadow-lg rounded-lg overflow-hidden transition-transform duration-300 p-4'>
         <div className='flex flex-col'>
-    
+
           <div className="flex flex-col w-full justify-center items-center mb-2">
             <h1 className='text-2xl font-bold text-indigo-600'>
               {/* {jobDetails.jobId} */}
@@ -532,41 +532,41 @@ const handleScan = (result) => {
               {jobDetails.name}
             </h2>
           </div>
-  
+
           <div className='flex flex-col items-center mb-2'>
             <img
               className='h-96 w-96  object-cont rounded-lg shadow-md'
               src={jobDetails.image}
               alt='Job'
             />
-     <div className='w-full mt-3'>
-  <div className="flex flex-col gap-1 px-2">
-    <div className='grid grid-cols-2 gap-1'>
-    {/* <p className='text-gray-600'>
+            <div className='w-full mt-3'>
+              <div className="flex flex-col gap-1 px-2">
+                <div className='grid grid-cols-2 gap-1'>
+                  {/* <p className='text-gray-600'>
      Design: <span className='text-gray-800  font-bold'>{jobDetails.designNumber}</span>
     </p> */}
-    <p className='text-gray-600'>
-     Customer: <span className='text-gray-800  font-bold'>{jobDetails.customerName}</span>
-    </p>
-   
-    <p className='text-gray-600'>
-     PO: <span className='text-gray-800  font-bold'>{jobDetails.poNumber}</span>
-    </p>
-    <p className='text-gray-600'>
-     Location: <span className='text-gray-800  font-bold'>{jobDetails.location}</span>
-    </p>
-    <p className='text-gray-600'>
-     Status: <span className='text-gray-800  font-bold'>{jobDetails.currentStatus}</span>
-    </p>
-    </div>
-  
-    
-  </div>
-</div>
+                  <p className='text-gray-600'>
+                    Customer: <span className='text-gray-800  font-bold'>{jobDetails.customerName}</span>
+                  </p>
+
+                  <p className='text-gray-600'>
+                    PO: <span className='text-gray-800  font-bold'>{jobDetails.poNumber}</span>
+                  </p>
+                  <p className='text-gray-600'>
+                    Location: <span className='text-gray-800  font-bold'>{jobDetails.location}</span>
+                  </p>
+                  <p className='text-gray-600'>
+                    Status: <span className='text-gray-800  font-bold'>{jobDetails.currentStatus}</span>
+                  </p>
+                </div>
+
+
+              </div>
+            </div>
 
           </div>
-  
-   
+
+
         </div>
       </div>
     )
@@ -586,11 +586,11 @@ const handleScan = (result) => {
               <p><strong>Purity:</strong> {rfBagDetails.Purity}</p>
               <p><strong>Weight:</strong> {rfBagDetails.Gm}</p>
             </div>
-  
+
             <div className="bg-gray-50 p-6 rounded-lg">
               <h3 className="font-semibold mb-4 text-lg">Material Requirements</h3>
               <div className="space-y-4">
-    
+
                 {rfBagDetails.Material === "METAL" ? (
                   <input
                     type="number"
@@ -617,8 +617,8 @@ const handleScan = (result) => {
                     />
                   </>
                 )}
-  
-               
+
+
                 <div className="flex space-x-4">
                   <button
                     onClick={() => {
@@ -628,10 +628,10 @@ const handleScan = (result) => {
                   >
                     Save
                   </button>
-  
+
                   <button
                     onClick={() => {
-                
+
                       alert('Canceled');
                     }}
                     className="w-full bg-gray-500 text-white px-4 py-3 rounded hover:bg-gray-600 transition duration-300 flex items-center justify-center"
@@ -646,25 +646,25 @@ const handleScan = (result) => {
       </div>
     )
   );
-  
+
 
   return (
     <div className="min-h-screen w-screen overflow-x-hidden bg-gray-100 ">
       <div className="max-w-screen">
         <div className="flex flex-row ">
           <div className="flex flex-col bg-white h-screen ">
-          <div className=" p-4 mb-8 bg-indigo-50">
-          <div className='flex flex-row gap-2 w-full justify-between h-fit items-center'>
-         
-            <select className="w-full p-2 border rounded-lg mb-4 focus:border-indigo-600 focus:ring focus:ring-indigo-200">
-              <option value="Filing">Gujarat-Gujarat</option>
+            <div className=" p-4 mb-8 bg-indigo-50">
+              <div className='flex flex-row gap-2 w-full justify-between h-fit items-center'>
 
-              <option value="Casting">India</option>
-              <option value="Polishing">Kolkata</option>
-            </select>
-            </div>
+                <select className="w-full p-2 border rounded-lg mb-4 focus:border-indigo-600 focus:ring focus:ring-indigo-200">
+                  <option value="Filing">Gujarat-Gujarat</option>
+
+                  <option value="Casting">India</option>
+                  <option value="Polishing">Kolkata</option>
+                </select>
+              </div>
               <div className=" w-full flex flex-col ">
-                <p  className='text-lg font-semibold'><FaUser className="inline mr-2 text-indigo-500" /> <strong className='text-blue-500'>(E1343) </strong> Pradeep Varma </p>
+                <p className='text-lg font-semibold'><FaUser className="inline mr-2 text-indigo-500" /> <strong className='text-blue-500'>(E1343) </strong> Pradeep Varma </p>
 
               </div>
             </div>
@@ -709,17 +709,17 @@ const handleScan = (result) => {
                 </form>
               </div>
             </div>
-        
-          </div>
-       
 
-<div className="flex  px-4 py-1 w-full flex-col h-screen  overflow-auto">
-        {renderJobDetails()}
-        {renderRfBagDetails()}
-      </div>
-      <div className='h-fit   min-h-screen w-full lg:w-[20vw]  '>
-        {renderSideJobDetails()}
-      </div>
+          </div>
+
+
+          <div className="flex  px-4 py-1 w-full flex-col h-screen  overflow-auto">
+            {renderJobDetails()}
+            {renderRfBagDetails()}
+          </div>
+          <div className='h-fit   min-h-screen w-full lg:w-[20vw]  '>
+            {renderSideJobDetails()}
+          </div>
         </div>
       </div>
     </div>
@@ -729,11 +729,11 @@ const handleScan = (result) => {
 
 export default JobScan;
 
-// T D: 2 Pcs /2 Ctw	
-// T C: 2 Pcs /2 Ctw	
-// T Misc: 2 Pcs /2 gm	
-// Metal: 5 Gm	
-// Finding: 2 Gm	
+// T D: 2 Pcs /2 Ctw
+// T C: 2 Pcs /2 Ctw
+// T Misc: 2 Pcs /2 gm
+// Metal: 5 Gm
+// Finding: 2 Gm
 // Engaged Finding: 2 Gm
 
 

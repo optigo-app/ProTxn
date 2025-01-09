@@ -68,6 +68,7 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
       }
     }
   };
+
   useEffect(() => {
     if (bagDetails[expandedIndex]?.wt) {
       setWillremain(parseFloat(bagDetails[expandedIndex].wt).toFixed(3));
@@ -120,21 +121,21 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
                     <span className="flex flex-row justify-center items-center gap-2">
                       <span className={`p-1 px-3 ${expandedIndex === index ? 'bg-[#DCF6E8] text-[#28c76f]' : ' bg-gray-100 text-gray-400'}
            rounded-md`} style={{ fontWeight: '500' }} >
-                        {rfBagDetails?.['1']}
+                        {rfBagDetails?.rfbag}
                       </span>
-                      {rfBagDetails?.['2'] === 1 && (
+                      {rfBagDetails?.itemid === 1 && (
                         <>
                           <p className='text-gray-500 text-sm font-medium'>
-                            (  {rfBagDetails?.['6']} {rfBagDetails?.['7']} {rfBagDetails?.['5']} )
+                            (  {rfBagDetails?.quality} {rfBagDetails?.color} {rfBagDetails?.shape} )
                           </p>
                         </>
                       )}
-                      {rfBagDetails?.['2'] !== 1 && (
+                      {rfBagDetails?.itemid !== 1 && (
                         <p className='text-gray-500 text-sm font-medium'>
-                          {rfBagDetails?.['5']} ({rfBagDetails?.['6 ']} {rfBagDetails?.["7"]} {rfBagDetails?.['8']} )
-                          
+                          {rfBagDetails?.shape} ({rfBagDetails?.quality} {rfBagDetails?.color} {rfBagDetails?.size} )
+                          {' '}
                           {/* {rfBagDetails.Size}  {rfBagDetails?.Mtype} )  */}
-                          | {rfBagDetails?.['14'] } 
+                          | {rfBagDetails?.ccode}
                         </p>
                       )}
                     </span>
@@ -171,15 +172,15 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
               <div className=' flex flex-row w-full justify-between '>
                 <div className=' flex flex-col'>
                   <span className='p-1 px-3 bg-[#DCF6E8] text-[#28c76f] font-semibold rounded-md w-fit text-xl mb-1'>
-                    {bagDetails[expandedIndex]?.['1']}
+                    {bagDetails[expandedIndex]?.rfbag}
                   </span>
                   <div className="grid grid-cols-1 gap-4 mb-2">
-                    {bagDetails[expandedIndex]?.['2'] === 1 && (
+                    {bagDetails[expandedIndex]?.itemid === 1 && (
                       <div className='flex flex-col '>
-                        <p className='text-gray-500 text-lg'>{bagDetails?.[expandedIndex]?.['6']} {bagDetails?.[expandedIndex]?.['7']} {bagDetails?.[expandedIndex]?.['5']}</p>
+                        <p className='text-gray-500 text-lg'>{bagDetails?.[expandedIndex]?.quality} {bagDetails?.[expandedIndex]?.color} {bagDetails?.[expandedIndex]?.shape}</p>
                       </div>
                     )}
-                    {bagDetails[expandedIndex]?.Material?.['2'] !== 1 && (
+                    {bagDetails[expandedIndex]?.Material?.itemid !== 1 && (
                       <p className='text-gray-500 text-lg'>
                         {bagDetails?.[expandedIndex]?.Material} ({bagDetails?.[expandedIndex]?.Shape} {bagDetails?.[expandedIndex]?.Clarity} {bagDetails?.[expandedIndex]?.Color} {bagDetails?.[expandedIndex]?.Size})</p>
                     )}
@@ -189,7 +190,7 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
                 <div className='flex flex-row w-fit gap-1 items-center h-fit'>
                   <p className='text-gray-500  '>
                     Bag Wt:
-                              </p>
+                  </p>
 
                   {bagDetails[expandedIndex]?.Material === 'METAL' && (
                     <p className='text-blue-500 font-semibold text-lg  '>

@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Public Sans"', 'ui-sans-serif', 'system-ui'],
+      },
       screens: {
         'sm': '640px',
         // => @media (min-width: 640px) { ... }
