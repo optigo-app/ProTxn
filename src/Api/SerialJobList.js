@@ -1,6 +1,7 @@
+import { mergeKeyobj } from "../Utils/globalFun";
 import { CommonAPI } from "./CommanApi/CommonAPI";
 
-export const fetchMasterApi = async () => {
+export const SerialJobListApi = async () => {
     try {
         let userId = "kp23@gmail.com";
         const combinedValue = JSON.stringify({
@@ -11,15 +12,21 @@ export const fetchMasterApi = async () => {
 
         const encodedCombinedValue = btoa(combinedValue);
         const body = {
-            con: `{\"id\":\"\",\"mode\":\"GETMASTER\",\"appuserid\":\"${userId}\"}`,
+            con: `{\"id\":\"\",\"mode\":\"SERIALJOBLIST\",\"appuserid\":\"${userId}\"}`,
             f: "Header (getCartData)",
             p: encodedCombinedValue,
             dp: combinedValue
         };
 
         const response = await CommonAPI(body);
+        let responseData = response?.Data;
+       
+        if (responseData) {
+            let data = mergeKeyobj(responseData)
+            console.log('data: ', data);
+            return data;
+        }
 
-        return response?.Data;
     } catch (error) {
         console.error("Error fetching cart details:", error);
         throw error;
