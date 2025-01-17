@@ -3,7 +3,7 @@ import axios from "axios";
 const onlineUrl = 'https://api.optigoapps.com/ReactStore/ReactStore.aspx';
 const localUrl = 'http://zen/api/ReactStore.aspx'
 const APIURL = (window.location.hostname === 'localhost' || window.location.hostname === 'zen') ?
-    onlineUrl :
+    localUrl :
     onlineUrl;
 
 
@@ -21,7 +21,6 @@ export const CommonAPI = async (body) => {
             sv: '0',
             domain: '',
             'Content-Type': 'application/json',
-            Cookie: 'ASP.NET_SessionId=i4btgm10k555buulfvmqyeyc',
         };
 
         const response = await axios.post(APIURL, body, { headers: header });

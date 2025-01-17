@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import img from '../../Assets/Jew.jpg';
+
 
 const JobDetails = ({ jobDetail, defaultExpanded = false }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
@@ -59,15 +60,15 @@ const JobDetails = ({ jobDetail, defaultExpanded = false }) => {
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex flex-col items-center space-y-1">
-                <p className="text-lg font-medium text-gray-700">{jobDetail.serialFor}</p>
+                <p className="text-lg font-medium text-gray-700">{jobDetail?.serialFor}</p>
                 <motion.img
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  src={jobDetail.image}
+                  src={jobDetail?.image ?? img}
                   alt="product"
                   className="h-20 w-20 object-cover rounded-lg shadow-md"
                 />
-                <p className="text-lg font-medium text-gray-700">{jobDetail.name}</p>
+                <p className="text-lg font-medium text-gray-700">{jobDetail?.name}</p>
               </div>
               <div className="flex flex-col justify-evenly ">
                 <InfoItem label="Customer Name" value={jobDetail?.CustomerName} />
@@ -95,6 +96,7 @@ const InfoItem = ({ label, value }) => (
 );
 
 const BulkJobScan = ({ jobList }) => {
+  console.log('jobList: ', jobList);
   return (
     <div className="w-full h-full flex flex-col gap-2 justify-start p-6 bg-gray-100">
       <AnimatePresence>

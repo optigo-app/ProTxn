@@ -660,8 +660,8 @@ function Survey() {
                           key={index + pageStartIndex}
                           onClick={() => handlePaginationClick(index + pageStartIndex)}
                           className={`w-8 h-8 rounded-full shadow-md focus:outline-none ${currentQuestionIndex === index + pageStartIndex
-                              ? 'text-[#fff] hover:bg-[#56a4ff] bg-[#56a5ffb9]'
-                              : 'text-gray-700 hover:bg-gray-300'
+                            ? 'text-[#fff] hover:bg-[#56a4ff] bg-[#56a5ffb9]'
+                            : 'text-gray-700 hover:bg-gray-300'
                             }`}
                         >
                           {index + pageStartIndex + 1}
@@ -702,8 +702,8 @@ function Survey() {
                       key={option}
                       onClick={() => handleOptionClick(option)}
                       className={`py-2 px-4 rounded-full shadow-md border border-gray-300 focus:outline-none ${answers[currentQuestion.id]?.includes(option)
-                          ? 'bg-[#56a4ff] text-white'
-                          : 'bg-white text-gray-700 hover:bg-teal-100'
+                        ? 'bg-[#56a4ff] text-white'
+                        : 'bg-white text-gray-700 hover:bg-teal-100'
                         }`}
                     >
                       {option}

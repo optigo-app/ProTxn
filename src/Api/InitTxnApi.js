@@ -3,7 +3,7 @@ import axios from "axios";
 const onlineUrl = 'https://api.optigoapps.com/ReactStore/ReactStore.aspx';
 const localUrl = 'http://zen/api/ReactStore.aspx';
 const APIURL = (window.location.hostname === 'localhost' || window.location.hostname === 'zen') ?
-    onlineUrl :
+    localUrl :
     onlineUrl;
 
 const encodeToBase64 = (data) => {
@@ -19,7 +19,6 @@ export const InitTxnApi = async ({ companyCode, password }) => {
             domain: "",
             sv: '0',
             "Content-Type": "application/json",
-            Cookie: "ASP.NET_SessionId=z2cfg3oh2v5rydatgx43dqqb"
         };
 
         const p = {
@@ -49,12 +48,12 @@ export const InitTxnApi = async ({ companyCode, password }) => {
 
         const response = await axios.post(APIURL, body, { headers: header });
         if (response.data.Data.rd[0].stat === 1) {
-            let initRes =  response.data.Data.rd[0]
+            let initRes = response.data.Data.rd[0]
             const yearcode = initRes?.yearcode;
             const dbUniqueKey = initRes?.dbUniqueKey;
             const UploadLogicalPathData = initRes?.UploadLogicalPath;
             const ukeyData = initRes?.ukey;
-            localStorage.setItem('InitTxn',  JSON?.stringify(initRes));
+            localStorage.setItem('InitTxn', JSON?.stringify(initRes));
             localStorage.setItem('UploadLogicalPath', UploadLogicalPathData);
             localStorage.setItem('ukey', ukeyData);
             localStorage.setItem('yearcode', yearcode);

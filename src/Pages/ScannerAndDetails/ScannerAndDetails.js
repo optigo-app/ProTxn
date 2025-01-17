@@ -16,6 +16,8 @@ import { dbJobdetails } from '../../fakeapi/JobDetails';
 import { Rmbag } from '../../fakeapi/Rmbag';
 import Swal from 'sweetalert2';
 import { LocalSet, LocalGet } from './LocFunctions';
+import ToggleButton from './CustomComponent/ToggleButton';
+import LockerSelect from './CustomComponent/LockerSelect';
 
 const ScannerAndDetails = () => {
   const [scannedCode, setScannedCode] = useState('');
@@ -31,6 +33,7 @@ const ScannerAndDetails = () => {
   const videoRef = useRef(null);
   const scannerRef = useRef(null);
   const [selectedDept, setSelectedDept] = useState('');
+  const [selectedLocker, setSelectedLocker] = useState('');
   const [bulkscancheck, setBulkscancheck] = useState(false);
   const [employeeScanned, setEmployeeScanned] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState(null);
@@ -51,6 +54,11 @@ const ScannerAndDetails = () => {
   const Location = LocalGet("tnxlocation");
   const rfBags = LocalGet("tnxrmbags");
   console.log(JSON.stringify(Location), 'jobData');
+
+  // for locker select
+  const handleLockerChange = (newLocker) => {
+    setSelectedLocker(newLocker);
+  };
 
 
   useEffect(() => {
@@ -111,18 +119,19 @@ const ScannerAndDetails = () => {
     const result = [];
 
     ids.forEach(id => {
-      const matchingObj = array?.find(obj => mode !== 'material' ? obj?.id : obj?.itemid == Number(id));
-      if (matchingObj) {
-        if (mode === 'location') {
-          result.push(matchingObj?.loc);
-        } else if (mode === 'locker') {
-          result.push(matchingObj?.lockername);
-        }else{
-          result.push(matchingObj?.itemname);
+      const matchingObjs = array?.filter(obj => mode !== 'material' ? obj?.id == Number(id) : obj?.itemid == Number(id));
+      matchingObjs.forEach(matchingObj => {
+        if (matchingObj) {
+          if (mode === 'location') {
+            result.push(matchingObj?.loc);
+          } else if (mode === 'locker') {
+            result.push(matchingObj?.lockername);
+          } else {
+            result.push(matchingObj?.itemname);
+          }
         }
-      }
+      });
     });
-
     return result;
   }
 
@@ -225,11 +234,11 @@ const ScannerAndDetails = () => {
             setReturnjobdetails(null);
             if (jobFound?.isissue === 0) {
               setJobDetails(jobFound);
-
+              debugger
               setBulkscancheck(true);
               if (bulkScan) {
                 setBulkJobDetails(prev => {
-                  const updatedBulkJobs = prev.filter(existingJob => existingJob.jobId !== jobFound.jobId);
+                  const updatedBulkJobs = prev.filter(existingJob => existingJob.jobid !== jobFound.jobid);
                   console.log("updatedBulkJobs", bulkJobDetails);
                   return [jobFound, ...updatedBulkJobs];
                 });
@@ -414,34 +423,13 @@ const ScannerAndDetails = () => {
 
               <div className="p-4 mb-8 bg-indigo-50">
                 <div className="flex items-center justify-center mb-4">
-                  <div className="relative bg-gray-200 rounded-full inline-flex">
-                    <button
-                      className={`px-4 py-2 text-sm font-medium rounded-full   focus:outline-none ${mode === 'Issue'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-gray-200 text-gray-700 '
-                        }`}
-                      onClick={() => handleModeToggle('Issue')}
-                    >
-                      Issue
-                    </button>
-                    <button
-                      className={`px-4 py-2 text-sm font-medium rounded-full focus:outline-none ${mode === 'Return'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-gray-200 text-gray-700 '
-                        }`}
-                      onClick={() => handleModeToggle('Return')}
-                    >
-                      Return
-                    </button>
-                  </div>
+                  <ToggleButton mode={mode} handleModeToggle={handleModeToggle} />
                 </div>
-                <select className="w-full p-2 border  rounded-lg mb-4 focus:border-indigo-600 focus:ring focus:ring-indigo-200">
-                  {locker.map((lock, index) => (
-                    <option key={index} value={lock}>
-                      {lock}
-                    </option>
-                  ))}
-                </select>
+                <LockerSelect
+                  lockers={locker}
+                  selectedLocker={selectedLocker}
+                  onLockerChange={handleLockerChange}
+                />
                 <h2 className="text-lg font-semibold">
                   <FaUser className="inline mr-2 text-indigo-500" /> Scan Employee ID
                 </h2>
@@ -495,35 +483,13 @@ const ScannerAndDetails = () => {
                 <div className=''>
                   <div className="p-4 mb-2 bg-indigo-50">
                     <div className="flex items-center justify-center mb-4">
-                      <div className="relative bg-gray-200 rounded-full inline-flex">
-                        <button
-                          className={`px-4 py-2 text-sm font-medium rounded-full   focus:outline-none 
-            ${mode === 'Issue' ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700 '}`}
-                          onClick={() => handleModeToggle('Issue')}
-                        >
-                          Issue
-                        </button>
-                        <button
-                          className={`px-4 py-2 text-sm font-medium rounded-full focus:outline-none 
-            ${mode === 'Return'
-                              ? 'bg-indigo-600 text-white'
-                              : 'bg-gray-200 text-gray-700 '
-                            }`}
-                          onClick={() => handleModeToggle('Return')}
-                        >
-                          Return
-                        </button>
-                      </div>
+                      <ToggleButton mode={mode} handleModeToggle={handleModeToggle} />
                     </div>
-                    <div className="flex flex-row gap-2 w-full justify-between h-fit items-center">
-                      <select className="w-full p-2 border rounded-lg mb-4 focus:border-indigo-600 focus:ring focus:ring-indigo-200">
-                        {locker.map((lock, index) => (
-                          <option key={index} value={lock}>
-                            {lock}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <LockerSelect
+                      lockers={locker}
+                      selectedLocker={selectedLocker}
+                      onLockerChange={handleLockerChange}
+                    />
                     {mode === 'Issue' && (
                       <div className="w-full flex flex-wrap justify-between">
                         <p className="text-lg font-semibold flex flex-row items-center gap-2">
@@ -586,6 +552,7 @@ const ScannerAndDetails = () => {
                             value={scannedCode}
                             onChange={handleChange}
                             ref={JobRef}
+                            autoFocus={employeeScanned}
                           />
                           <button
                             onClick={handleScanSubmit}
@@ -610,7 +577,13 @@ const ScannerAndDetails = () => {
                     {!returnjobdetails && !bulkScan && (
                       <button
                         onClick={handleUnlockEngage}
-                        className={`bg-gradient-to-r from-orange-300 to-orange-500 m-3 rounded-md   flex items-center justify-center text-lg text-white px-6 py-3 mt-4 font-semibold hover:bg-green-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`bg-gradient-to-r from-orange-300 to-orange-500 m-3 
+                          rounded-md flex items-center 
+                          justify-center text-lg 
+                          text-white px-6 py-3 mt-4 
+                          font-semibold hover:bg-green-700 
+                          transition 
+                          duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loading}
                       >
                         {loading ? (
@@ -625,7 +598,7 @@ const ScannerAndDetails = () => {
                     )}
                     <button
                       onClick={handleissuesubmit}
-                      className={`bg-gradient-to-r from-blue-400 to-blue-600 flex  m-3 rounded-md mt-0 items-center justify-center text-lg text-white px-6 py-3 font-semibold hover:bg-green-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`bg-gradient-to-r from-blue-400 to-blue-600 flex m-3 rounded-md mt-0 items-center justify-center text-lg text-white px-6 py-3 font-semibold hover:bg-green-700 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={loading}
                     >
                       {loading ? (

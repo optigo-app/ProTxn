@@ -39,6 +39,9 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
     if (!bagDetails[expandedIndex]) {
       setExpandedIndex(bagDetails.length - 1);
     }
+    setTempWeight('');
+    setTempPcs('');
+    setErrorMessage('');
   }, [bagDetails, expandedIndex]);
 
   const handleIssue = (index) => {
@@ -98,7 +101,7 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
       setIsdisabled(true);
     }
   };
-  console.log('willremain', willremain);
+
   return (
     <div className="w-full h-[30vh] flex flex-row-reverse gap-3">
       <div className="w-1/2 pr-4 h-[30vh] overflow-auto">
@@ -144,12 +147,12 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
                     <div>
                       {rfBagDetails.Material !== "METAL" && issuedWeight[rfBagDetails.rfbagid] && (
                         <div className="text-base font-medium text-gray-800">
-                          | Issue Weight: {issuedWeight?.[rfBagDetails?.rfbagid]} Ctw | Pcs: {pcs[rfBagDetails?.rfbagid] || '0'}
+                          Issue Weight: {issuedWeight?.[rfBagDetails?.rfbagid]} Ctw | Pcs: {pcs[rfBagDetails?.rfbagid] || '0'}
                         </div>
                       )}
                       {rfBagDetails.Material === "METAL" && issuedWeight[rfBagDetails?.rfbagid] && (
                         <div className="text-base font-medium text-gray-800">
-                          | Issue Weight: {issuedWeight?.[rfBagDetails?.rfbagid]} Gm
+                          Issue Weight: {issuedWeight?.[rfBagDetails?.rfbagid]} Gm
                         </div>
                       )}
                     </div>
@@ -169,21 +172,25 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
         {bagDetails[expandedIndex] ? (
           <div className="flex flex-col h-full justify-between">
             <div className="flex flex-col  justify-start">
-              <div className=' flex flex-row w-full justify-between '>
+              <div className='flex flex-row w-full justify-between'>
                 <div className=' flex flex-col'>
                   <span className='p-1 px-3 bg-[#DCF6E8] text-[#28c76f] font-semibold rounded-md w-fit text-xl mb-1'>
                     {bagDetails[expandedIndex]?.rfbag}
                   </span>
-                  <div className="grid grid-cols-1 gap-4 mb-2">
-                    {bagDetails[expandedIndex]?.itemid === 1 && (
-                      <div className='flex flex-col '>
-                        <p className='text-gray-500 text-lg'>{bagDetails?.[expandedIndex]?.quality} {bagDetails?.[expandedIndex]?.color} {bagDetails?.[expandedIndex]?.shape}</p>
-                      </div>
-                    )}
-                    {bagDetails[expandedIndex]?.Material?.itemid !== 1 && (
-                      <p className='text-gray-500 text-lg'>
-                        {bagDetails?.[expandedIndex]?.Material} ({bagDetails?.[expandedIndex]?.Shape} {bagDetails?.[expandedIndex]?.Clarity} {bagDetails?.[expandedIndex]?.Color} {bagDetails?.[expandedIndex]?.Size})</p>
-                    )}
+                  <div className="flex flex-row w-full justify-between">
+                    <>
+                      {bagDetails[expandedIndex]?.itemid === 1 && (
+                        <div className='flex flex-col '>
+                          <p className='text-gray-500 text-lg'>{bagDetails?.[expandedIndex]?.quality} {bagDetails?.[expandedIndex]?.color} {bagDetails?.[expandedIndex]?.shape}</p>
+                        </div>
+                      )}
+                    </>
+                    <>
+                      {bagDetails[expandedIndex]?.Material?.itemid !== 1 && (
+                        <p className='text-gray-500 text-lg'>
+                          {bagDetails?.[expandedIndex]?.Material} ({bagDetails?.[expandedIndex]?.Shape} {bagDetails?.[expandedIndex]?.Clarity} {bagDetails?.[expandedIndex]?.Color} {bagDetails?.[expandedIndex]?.Size})</p>
+                      )}
+                    </>
                   </div>
                 </div>
 
@@ -260,19 +267,16 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
                     <div className="flex justify-end ">
                       <button
                         onClick={() => handleIssue(expandedIndex)}
-                        className="flex items-center justify-center bg-[#28c76f] text-white text-lg px-2 py-1 rounded hover:bg-[#4dc284] transition duration-300"
+                        className="flex items-center justify-center bg-[#28c76f] text-white text-lg px-4 py-1 rounded hover:bg-[#4dc284] transition duration-300"
                       >
-                        <FaPlus className="mr-1" /> Issue
+                        <FaPlus className="mr-1.5" /> Issue
                       </button>
                     </div>
-
-
                   </div>
                 </div>
-
-                <div className='flex w-full  justify-end'>
-                  {tempWeight && (
-                    <div className="flex w-full justify-end">
+                <div className="relative w-full">
+                  <div className="flex w-full justify-end absolute bottom-0 right-0">
+                    {tempWeight && (
                       <div className="flex flex-row w-fit gap-1 items-center h-fit">
                         <p className="text-gray-500">Will Remain:</p>
 
@@ -288,11 +292,10 @@ const RfBagDetails = ({ bagDetails, setBagDetails }) => {
                           </p>
                         )}
                       </div>
-
-                    </div>
-                  )}
-
+                    )}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>

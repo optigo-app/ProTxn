@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FaInfoCircle, FaChevronRight } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import { FaInfoCircle } from 'react-icons/fa'
 
 const JobDetails = ({ jobDetail, isSelected, onSelect }) => {
   return (

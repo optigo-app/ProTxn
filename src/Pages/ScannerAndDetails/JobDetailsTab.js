@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -9,10 +9,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import '../../components/Scrollbar.css';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { IoSwapHorizontal } from "react-icons/io5";
 import DetailsTable from '../JobScan/DetailsTable';
-import { IoClose } from 'react-icons/io5'; 
+import { IoClose } from 'react-icons/io5';
 import { IoMdReturnRight } from "react-icons/io";
 import { GrTransaction } from "react-icons/gr";
 import '../../components/Scanner.css';
@@ -20,77 +19,45 @@ import { ReturnRmBags } from '../../fakeapi/ReturnRmBags';
 import initialRows from '../../fakeapi/initialrws';
 import ReturnModal from './RFReturnModal';
 
-const theme = createTheme({
-  components: {
-    MuiDataGrid: {
-      styleOverrides: {
-        root: {
-          border: 'none',
-          backgroundColor: 'white',
-          '& .MuiDataGrid-cell': {
-            borderBottom: '1px solid #f4f5fa',
-          },
-          '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: '#f9fafc',
-            color: '#6e6b7b',
-            borderBottom: 'none',
-          },
-          '& .MuiDataGrid-virtualScroller': {
-            '&::-webkit-scrollbar': {
-              width: '5px',
-              height: '5px',
-            },
-            '&::-webkit-scrollbar-track': {
-              backgroundColor: '#F5F5F5',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#14121986',
-              borderRadius: '6px',
-            },
-          },
-        },
-      },
-    },
-  },
-});
 
-const JobDetailsTab = ({ jobflag,jobDetail}) => {
+const JobDetailsTab = ({ jobflag, jobDetail }) => {
   const [rows, setRows] = useState(initialRows);
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openReturnModal, setOpenReturnModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedRowData, setSelectedRowData] = useState(null);
-  const[rmbagDetails,setRmbagDetails] = useState(false);
+  const [rmbagDetails, setRmbagDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const [scannedCode, setScannedCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const[showgrid,setShowgrid] = useState(false);
+  const [showgrid, setShowgrid] = useState(false);
   const [isWeightModalOpen, setIsWeightModalOpen] = useState(false);
   const handleOpenWeightModal = () => setIsWeightModalOpen(true);
   const handleCloseWeightModal = () => setIsWeightModalOpen(false);
-  const rmBags = ReturnRmBags; 
+  const rmBags = ReturnRmBags;
 
   useEffect(() => {
-      const handleEscKey = (event) => {
-        if (event.key === 'Escape') {      
-          handleCloseWeightModal();
-          handleCloseReturnModal();
-        }
-      };
-            document.addEventListener('keydown', handleEscKey);
-      return () => document.removeEventListener('keydown', handleEscKey);
-    }, []);
-
-    const handleScanSubmit = () => {
-  const foundBag = rmBags.find((bag) => bag.rmbagid === scannedCode);
-  if (foundBag) {
-        setRmbagDetails(foundBag);
-        setErrorMessage('');
-      } else {
-        setErrorMessage('RM Bag not found');
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        handleCloseWeightModal();
+        handleCloseReturnModal();
       }
     };
+    document.addEventListener('keydown', handleEscKey);
+    return () => document.removeEventListener('keydown', handleEscKey);
+  }, []);
+
+  const handleScanSubmit = () => {
+    const foundBag = rmBags.find((bag) => bag.rmbagid === scannedCode);
+    if (foundBag) {
+      setRmbagDetails(foundBag);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('RM Bag not found');
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -106,7 +73,7 @@ const JobDetailsTab = ({ jobflag,jobDetail}) => {
     setSelectedId(null);
   };
 
-const handleReturnAll = () => {
+  const handleReturnAll = () => {
     setRows(rows.filter((row) => row.id !== selectedId));
     setOpen(false);
   };
@@ -116,7 +83,7 @@ const handleReturnAll = () => {
     setSelectedRowData(rowData);
     setOpenReturnModal(true);
   };
-  
+
   const handleCloseReturnModal = () => {
     setOpenReturnModal(false);
     setSelectedRowData(null);
@@ -157,19 +124,19 @@ const handleReturnAll = () => {
     //     ) : null  
     //   ),
     // },    
-    
+
     {
       field: 'return',
       headerName: 'Return',
       width: 70,
       renderCell: (params) => (
-        params.row.flag === 0 ? (    <IconButton
+        params.row.flag === 0 ? (<IconButton
           className="text-[#257BF0] cursor-pointer hover:text-blue-600"
           onClick={() => handleOpenReturnModal(params.id)}
           sx={{ color: '#257BF0', '&:hover': { color: 'gray' } }}
         >
           <IoMdReturnRight size={20} />
-        </IconButton>):null
+        </IconButton>) : null
       ),
     },
     { field: 'bagPrepBy', headerName: 'BagPrepBy', width: 100 },
@@ -189,12 +156,12 @@ const handleReturnAll = () => {
 
   const getRowClassName = (params) => {
     if (jobflag === 0 && params.row.flag === 1) {
-        return 'bg-custom-hover';
+      return 'bg-custom-hover';
     } else if (jobflag === 0 && params.row.flag === 2) {
-        return 'bg-cusyellow-50';
+      return 'bg-cusyellow-50';
     }
     return '';
-};
+  };
 
   const CustomModal = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
@@ -215,8 +182,12 @@ const handleReturnAll = () => {
     );
   };
 
+  const handlePaginationChange = (newModel) => {
+    setPaginationModel(newModel);
+  };
 
-  const handleshowgrid =() =>{
+
+  const handleshowgrid = () => {
     setShowgrid(!showgrid);
   }
 
@@ -227,54 +198,67 @@ const handleReturnAll = () => {
         Transactions
       </div>
       <div className="relative overflow-hidden">
-        <div className="w-full bg-white h-[40vh] overflow-auto">
-        {showgrid &&     
-        <ThemeProvider theme={theme}>
-        <DataGrid
-      rows={rows}
-      columns={columns}
-      pageSize={5}
-      rowsPerPageOptions={[5]}
-      checkboxSelection={jobflag === 0}
-      isRowSelectable={(params) => jobflag === 0 && ( params.row.flag === 1)}
-      getRowClassName={getRowClassName}
-      sx={{ 
-          '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-cell:focus': {
-          outline: 'none',
-          boxShadow: 'none',
-        },
-        '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-cell:focus-within': {
-          outline: 'none',
-          boxShadow: 'none',
-        },
-        '& .css-de9k3v-MuiDataGrid-selectedRowCount': {
-          visibility: 'hidden',
-        },
-        '& .MuiDataGrid-row.Mui-selected': {
-          backgroundColor: '#d1e7fd !important',
-        },
-        '&  .Mui-disabled' :{
-          color:'transparent !important'
-        }
-}}
-        />
-        </ThemeProvider>
-        }
-        
+        <div className="w-full bg-white h-[35vh] overflow-auto">
+          {showgrid &&
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSizeOptions={[5, 10, 15]}
+              paginationModel={paginationModel}
+              onPaginationModelChange={handlePaginationChange}
+              checkboxSelection={jobflag === 0}
+              isRowSelectable={(params) => jobflag === 0 && (params.row.flag === 1)}
+              getRowClassName={getRowClassName}
+              density='compact'
+              sx={{
+                height: '100%',
+                '& .MuiDataGrid-columnHeaders': {
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 1,
+                  backgroundColor: '#fff',
+                },
+                '& .MuiDataGrid-footerContainer': {
+                  position: 'sticky',
+                  bottom: 0,
+                  zIndex: 1,
+                  backgroundColor: '#fff',
+                },
+                '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-cell:focus': {
+                  outline: 'none',
+                  boxShadow: 'none',
+                },
+                '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-cell:focus-within': {
+                  outline: 'none',
+                  boxShadow: 'none',
+                },
+                '& .css-de9k3v-MuiDataGrid-selectedRowCount': {
+                  visibility: 'hidden',
+                },
+                '& .MuiDataGrid-row.Mui-selected': {
+                  backgroundColor: '#d1e7fd !important',
+                },
+                '&  .Mui-disabled': {
+                  color: 'transparent !important'
+                }
+              }}
+            />
+          }
+
           <CustomModal isOpen={openModal} onClose={handleCloseModal}>
             <DetailsTable />
           </CustomModal>
 
-            {openReturnModal && selectedRowData && (
+          {openReturnModal && selectedRowData && (
             <ReturnModal
-            isOpen={openReturnModal}
-            handleCloseReturnModal={handleCloseReturnModal}
-            selectedRowData={selectedRowData}
-            isWeightModalOpen={openReturnModal}
-            handleScanSubmit={handleScanSubmit}
-            loading={loading}
-          />
-            )}
+              isOpen={openReturnModal}
+              handleCloseReturnModal={handleCloseReturnModal}
+              selectedRowData={selectedRowData}
+              isWeightModalOpen={openReturnModal}
+              handleScanSubmit={handleScanSubmit}
+              loading={loading}
+            />
+          )}
 
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Confirm Return All</DialogTitle>

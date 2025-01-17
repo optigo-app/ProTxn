@@ -5,33 +5,36 @@ import QrReader from 'react-qr-barcode-scanner';
 import { FaQrcode, FaTimes, FaSignOutAlt } from 'react-icons/fa';
 import Scannericon from '../Assets/Qrcode.png';
 import { useRecoilValue } from 'recoil';
-import { rd4State } from '../Recoil/FetchDataComponent';
+import { rd4State, tnxemployees } from '../Recoil/FetchDataComponent';
 import { ClipLoader } from 'react-spinners';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
-import { LocalSet,LocalGet } from './ScannerAndDetails/LocFunctions';
+import { LocalSet, LocalGet } from './ScannerAndDetails/LocFunctions';
 
 const Scanemp = () => {
 
-const navigate = useNavigate();
-const [barcode, setBarcode] = useState('');
-const [scannedCode, setScannedCode] = useState('');
-const [hasCamera, setHasCamera] = useState(true);
-const [qcdept, setQcdept] = useState([]);
-const [employeeid, setEmployeeid] = useState();
-const [eventid, setEventid] = useState();
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [modalButtons, setModalButtons] = useState([]);
-const [errorMessage, setErrorMessage] = useState('');
-const [loading, setLoading] = useState(false);
-const [pin, setPin] = useState('');
-const [isPinVisible, setIsPinVisible] = useState(false);
-const [isSlideVisible, setIsSlideVisible] = useState(false);
-const [isScannerActive, setIsScannerActive] = useState(false);
-const employees =LocalGet('tnxemployees') || '[]';
+  const navigate = useNavigate();
+  const [barcode, setBarcode] = useState('');
+  const [scannedCode, setScannedCode] = useState('');
+  const [hasCamera, setHasCamera] = useState(true);
+  const [qcdept, setQcdept] = useState([]);
+  const [employeeid, setEmployeeid] = useState();
+  const [eventid, setEventid] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalButtons, setModalButtons] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [pin, setPin] = useState('');
+  const [isPinVisible, setIsPinVisible] = useState(false);
+  const [isSlideVisible, setIsSlideVisible] = useState(false);
+  const [isScannerActive, setIsScannerActive] = useState(false);
+  const employees = LocalGet('tnxemployees') || '[]';
   // console.log('tnxemployees',employees);
 
-useEffect(() => {
+  const empval = useRecoilValue(tnxemployees)
+  console.log('empval: ', empval);
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'F12') {
         e.preventDefault();
@@ -44,22 +47,22 @@ useEffect(() => {
     };
   }, []);
 
-const EmployeeCodeRef = useRef(null);
-const PinRef = useRef(null);
+  const EmployeeCodeRef = useRef(null);
+  const PinRef = useRef(null);
 
-useEffect(() => {
+  useEffect(() => {
     if (EmployeeCodeRef.current) {
       EmployeeCodeRef.current.focus();
     }
   }, []);
 
-useEffect(() => {
+  useEffect(() => {
     if (isSlideVisible && PinRef.current) {
       PinRef.current.focus();
     }
   }, [isSlideVisible]);
 
-useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       if (errorMessage) {
         setErrorMessage('');
@@ -70,7 +73,7 @@ useEffect(() => {
     return () => clearTimeout(timer);
   }, [errorMessage]);
 
-const handleScan = (result) => {
+  const handleScan = (result) => {
     if (result) {
       setScannedCode(result.text);
       setBarcode(result.text);
@@ -106,10 +109,9 @@ const handleScan = (result) => {
   // };
 
   const validateEmployee = (scannedCode) => {
-    debugger
     console.log('scannedCode: ', scannedCode);
     const normalizedScannedCode = String(scannedCode).trim().toUpperCase();
-    const Foundemp = employees.find(employee => 
+    const Foundemp = employees.find(employee =>
       String(employee?.bar || "").trim().toUpperCase() === normalizedScannedCode
     );
 
@@ -117,9 +119,9 @@ const handleScan = (result) => {
       const hasLocationRights = Boolean(Foundemp?.lockerids);
       const hasAdditionalRights = Boolean(Foundemp?.locationid);
       if (hasLocationRights && hasAdditionalRights) {
-        LocalSet('tnxoperator', Foundemp);  
-        setIsSlideVisible(true);  
-        setErrorMessage('');  
+        LocalSet('tnxoperator', Foundemp);
+        setIsSlideVisible(true);
+        setErrorMessage('');
       } else {
         setErrorMessage('Employee has no location rights');
         console.log("Access Rights Missing:", Foundemp);
@@ -129,7 +131,7 @@ const handleScan = (result) => {
       console.log("Invalid Scanned Code:", scannedCode);
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (barcode.trim() === '') {
@@ -182,7 +184,7 @@ const handleScan = (result) => {
                 <img src={Scannericon} alt="Scanner" className="h-full w-full object-contain" />
               </div>
             )}
-            
+
             {errorMessage && (
               <div className="mt-4 text-red-600 rounded-lg">
                 {errorMessage}
